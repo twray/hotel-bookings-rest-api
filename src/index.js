@@ -29,7 +29,7 @@ const simulateNetworkConditions = () => new Promise((resolve, reject) => { 
 });
 
 app.get('/booking/list', (request, response) => {
-  simulateNetworkConditions(response)
+  simulateNetworkConditions()
     .then(() => {
       let data = db.get('bookings').value();
       if (data) {
@@ -42,7 +42,7 @@ app.get('/booking/list', (request, response) => {
 });
 
 app.get('/booking/search', (request, response) => {
-  simulateNetworkConditions(response)
+  simulateNetworkConditions()
     .then(() => {
       let query = request.query && request.query['q'];
       let data = db.get('bookings').value();
@@ -61,7 +61,7 @@ app.get('/booking/search', (request, response) => {
 });
 
 app.get('/booking/:id', (request, response) => {
-  simulateNetworkConditions(response)
+  simulateNetworkConditions()
     .then(() => {
       let booking = db.get('bookings').find({"bookingReference": request.params.id}).value();
       if (booking) {
@@ -74,7 +74,7 @@ app.get('/booking/:id', (request, response) => {
 });
 
 app.post('/booking/:id/checkin', (request, response) => {
-  simulateNetworkConditions(response)
+  simulateNetworkConditions()
     .then(() => {
       let booking = db.get('bookings').find({"bookingReference": request.params.id});
       if (booking) {
@@ -88,7 +88,7 @@ app.post('/booking/:id/checkin', (request, response) => {
 });
 
 app.post('/booking/:id/checkout', (request, response) => {
-  simulateNetworkConditions(response)
+  simulateNetworkConditions()
     .then(() => {
       let booking = db.get('bookings').find({"bookingReference": request.params.id});
       if (booking) {
