@@ -19,43 +19,86 @@ app.use(cors());
 app.use(bodyParser.urlencoded({'extended': true}));
 app.use(bodyParser.json());
 
-app.get('/booking/list', (request, response) => {
-  let data = db.get('bookings').value();
-  if (data) {
-    response.json(data);
+const simulateNetworkConditions = () => new Promise((resolve, reject) => { 
+  const networkFail = !Boolean(Math.floor(Math.random() * 10));
+  if (!networkFail) {
+    setTimeout(resolve, Math.random() * 1000);
   } else {
-    response.status(500).end();
+    reject();
   }
+});
+
+app.get('/booking/list', (request, response) => {
+  simulateNetworkConditions(response)
+    .then(() => {
+      let data = db.get('bookings').value();
+      if (data) {
+        response.json(data);
+      } else {
+        response.status(500).end();
+      }
+    })
+    .catch(() => response.status(500).end());
+});
+
+app.get('/booking/search', (request, response) => {
+  simulateNetworkConditions(response)
+    .then(() => {
+      let query = request.query && request.query['q'];
+      let data = db.get('bookings').value();
+      if (data && query) {
+        data = data.filter(booking => {
+          return booking.bookingReference === query ||
+            booking.guest.name.toLowerCase().includes(query.toLowerCase()) ||
+            booking.room.roomNumber === query
+        });
+        response.json(data);
+      } else {
+        response.status(500).end();
+      }
+    })
+    .catch(() => response.status(500).end());
 });
 
 app.get('/booking/:id', (request, response) => {
-  let booking = db.get('bookings').find({"bookingReference": request.params.id}).value();
-  console.log(booking);
-  if (booking) {
-    response.json(booking);
-  } else {
-    response.status(400).end();
-  }
+  simulateNetworkConditions(response)
+    .then(() => {
+      let booking = db.get('bookings').find({"bookingReference": request.params.id}).value();
+      if (booking) {
+        response.json(booking);
+      } else {
+        response.status(400).end();
+      }
+    })
+    .catch(() => response.status(500).end());
 });
 
 app.post('/booking/:id/checkin', (request, response) => {
-  let booking = db.get('bookings').find({"bookingReference": request.params.id});
-  if (booking) {
-    booking.assign({"state": "checked_in"}).write();
-    response.json(booking);
-  } else {
-    response.status(400).end();
-  }
+  simulateNetworkConditions(response)
+    .then(() => {
+      let booking = db.get('bookings').find({"bookingReference": request.params.id});
+      if (booking) {
+        booking.assign({"state": "checked_in"}).write();
+        response.json(booking);
+      } else {
+        response.status(400).end();
+      }
+    })
+    .catch(() => response.status(500).end());
 });
 
 app.post('/booking/:id/checkout', (request, response) => {
-  let booking = db.get('bookings').find({"bookingReference": request.params.id});
-  if (booking) {
-    booking.assign({"state": "checked_out"}).write();
-    response.json(booking);
-  } else {
-    response.status(400).end();
-  }
+  simulateNetworkConditions(response)
+    .then(() => {
+      let booking = db.get('bookings').find({"bookingReference": request.params.id});
+      if (booking) {
+        booking.assign({"state": "checked_out"}).write();
+        response.json(booking);
+      } else {
+        response.status(400).end();
+      }
+    })
+    .catch(() => response.status(500).end());
 });
 
-app.listen(PORT, () => log(`Example app listening on port ${PORT}!`));
+app.listen(PORT, () => log(`Our app is listening on port ${PORT}!`));

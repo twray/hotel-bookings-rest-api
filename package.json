@@ -1,5 +1,5 @@
 {
-  "name": "node-backend-tutorial",
+  "name": "hotel-api",
   "version": "1.0.0",
   "description": "A simple tutorial for developing a REST API using Express and MongoDB",
   "main": "index.js",

@@ -35,8 +35,8 @@
         "bedCount": 2,
         "price": 1200
       },
-      "checkInDate": "2019-04-24",
-      "checkOutDate": "2019-05-01",
+      "checkInDate": "2019-05-06",
+      "checkOutDate": "2019-05-07",
       "paymentMethod": "Credit Card",
       "state": "checked_in"
     },
@@ -55,8 +55,8 @@
         "bedCount": 1,
         "price": 850
       },
-      "checkInDate": "2019-04-24",
-      "checkOutDate": "2019-05-04",
+      "checkInDate": "2019-05-06",
+      "checkOutDate": "2019-05-08",
       "paymentMethod": "Credit Card",
       "state": "checked_in"
     },
@@ -75,7 +75,7 @@
         "bedCount": 2,
         "price": 1750
       },
-      "checkInDate": "2019-05-01",
+      "checkInDate": "2019-05-06",
       "checkOutDate": "2019-05-09",
       "paymentMethod": "Credit Card",
       "state": "booked"
