@@ -7,7 +7,7 @@ import FileSync from 'lowdb/adapters/FileSync';
 
 const log = console.log;
 const app = express();
-const PORT = process.env.PORT;
+const PORT = 5000;
 
 const adapter = new FileSync('db/db.json');
 const db = lowdb(adapter);
