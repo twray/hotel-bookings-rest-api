@@ -1,0 +1,32 @@
+{
+  "name": "node-backend-tutorial",
+  "version": "1.0.0",
+  "description": "A simple tutorial for developing a REST API using Express and MongoDB",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node src/index.js"
+  },
+  "keywords": [
+    "tutorial"
+  ],
+  "author": "Tim Wray",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.4.4",
+    "@babel/node": "^7.2.2",
+    "@babel/preset-env": "^7.4.4",
+    "nodemon": "^1.19.0"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "db/*"
+    ]
+  },
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "lowdb": "^1.0.0"
+  }
+}
